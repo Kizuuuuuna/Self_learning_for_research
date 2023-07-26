@@ -17,12 +17,14 @@ profile = pipeline.start(config)
 #→上行で作成したパイプラインを指定した設定（configのこと）で開始している。つまり、configの設定で開始されたRSのストリーミングがprofileというオブジェクトに格納されている
 
 # 距離[m] = depth * depth_scale
+# ＲＳから得られる深度データは、そのまま[m]の単位として使えないため、変換している
 depth_sensor = profile.get_device().first_depth_sensor()
 depth_scale = depth_sensor.get_depth_scale()
 clipping_distance_in_meters = 0.4 # 40cm以内を検出
 clipping_distance = clipping_distance_in_meters / depth_scale
 
 # Alignオブジェクト生成
+# 表示方法の設定
 align_to = rs.stream.color
 align = rs.align(align_to)
 
